@@ -13,13 +13,14 @@ const scaledHeight = scale * height;
 
 
 // variables for moving
-let spriteX = 500;
-let spriteY = 500;
-let faceDirection;
+let spriteX = 455;
+let spriteY = 520;
 let up = 1;
 let left= 2
 let right = 3;
 let down = 0;
+let faceDirection = up;
+
 
 
 
@@ -53,12 +54,83 @@ const board = new Sprite({
     image: map
 })
 
-
+//function to help figure out canvas coordinates
+const getCursorPosition = (canvas, event) => {
+    const x = event.offsetX
+    const y = event.offsetY
+    console.log(x, y)
+  }
 
 function animate() {
     requestAnimationFrame(animate)
     board.draw();
-    drawFrame(0, up, spriteX, spriteY)
+    drawFrame(0, faceDirection, spriteX, spriteY)
+}
+
+function move(direction) {
+    //right
+    if (direction ==right) {
+        if (faceDirection == up) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        faceDirection = right;
+        drawFrame (0, right, spriteX, spriteY);
+        }
+        else if (faceDirection == right) {
+             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            faceDirection = down;
+        drawFrame (0, down, spriteX, spriteY); 
+        }
+        else if (faceDirection == down) {
+             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            faceDirection =left;
+        drawFrame (0, left, spriteX, spriteY); 
+        }
+        else if (faceDirection == left) {
+             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            faceDirection =up;
+        drawFrame (0, faceDirection, spriteX, spriteY); 
+        }
+    }
+
+    // left
+    if (direction == left) {
+        if (faceDirection == up) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        faceDirection = left;
+        // drawFrame (0, left, spriteX, spriteY);
+        }
+        else if (faceDirection == right) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        faceDirection =up;
+        // drawFrame (0, up, spriteX, spriteY);
+        }
+        else if (faceDirection == down) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        faceDirection =right;
+        // drawFrame (0, right, spriteX, spriteY);
+        }
+        else if (faceDirection == left) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        faceDirection =down;
+        // drawFrame (0, down, spriteX, spriteY);
+        }
+    }
 }
 
 animate();
+
+canvas.addEventListener('mousedown', (e) => {
+    getCursorPosition(canvas, e)
+  })
+
+  document.addEventListener("keydown", function(event){
+    if(event.key === "ArrowUp"){
+      move(straight);
+    }
+    else if (event.key === "ArrowLeft") {
+        move(left)
+    }
+    else if (event.key === "ArrowRight") {
+        move(right)
+    }
+  });
