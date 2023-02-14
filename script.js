@@ -20,6 +20,7 @@ let left= 2
 let right = 3;
 let down = 0;
 let faceDirection = up;
+let straight;
 
 
 
@@ -54,12 +55,45 @@ const board = new Sprite({
     image: map
 })
 
+class Boundary {
+    static width = 48
+    static height = 48
+    constructor(position) {
+        this.position = position
+        this.width = 48
+        this.height = 48
+    }
+
+    draw() {
+        ctx.fillStyle = "red"
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+}
+
+const hole = [];
+
 //function to help figure out canvas coordinates
 const getCursorPosition = (canvas, event) => {
-    const x = event.offsetX
-    const y = event.offsetY
-    console.log(x, y)
-  }
+const x = event.offsetX
+const y = event.offsetY
+console.log(x, y)
+}
+
+canvas.addEventListener('mousedown', (e) => {
+getCursorPosition(canvas, e)
+})
+
+document.addEventListener("keydown", function(event){
+if(event.key === "ArrowUp"){
+    move(straight);
+}
+else if (event.key === "ArrowLeft") {
+    move(left)
+}
+else if (event.key === "ArrowRight") {
+    move(right)
+}
+});
 
 function animate() {
     requestAnimationFrame(animate)
@@ -97,40 +131,50 @@ function move(direction) {
         if (faceDirection == up) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         faceDirection = left;
-        // drawFrame (0, left, spriteX, spriteY);
         }
         else if (faceDirection == right) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         faceDirection =up;
-        // drawFrame (0, up, spriteX, spriteY);
         }
         else if (faceDirection == down) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         faceDirection =right;
-        // drawFrame (0, right, spriteX, spriteY);
         }
         else if (faceDirection == left) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         faceDirection =down;
-        // drawFrame (0, down, spriteX, spriteY);
+          }
+    }
+
+    if (direction == straight) {
+        switch (faceDirection) {
+            case up: 
+                spriteY -= 64;
+                if (spriteY < 0) {
+                    spriteY = 520;
+                }
+            break;
+            case right:
+                spriteX +=64;
+                if (spriteX > 967) {
+                    spriteX = 7
+                }
+            break;
+            case down:
+                spriteY +=64;
+                if (spriteY > 520) {
+                    spriteY = 8
+                }
+            break;
+            case left:
+                spriteX -=64;
+                if (spriteX < 7) {
+                    spriteX = 967;
+                }
+            break;
         }
     }
 }
 
 animate();
 
-canvas.addEventListener('mousedown', (e) => {
-    getCursorPosition(canvas, e)
-  })
-
-  document.addEventListener("keydown", function(event){
-    if(event.key === "ArrowUp"){
-      move(straight);
-    }
-    else if (event.key === "ArrowLeft") {
-        move(left)
-    }
-    else if (event.key === "ArrowRight") {
-        move(right)
-    }
-  });
