@@ -12,23 +12,34 @@ const scaledWidth = scale * width;
 const scaledHeight = scale * height;
 
 
-// variables for moving
-let spriteX = 455;
-let spriteY = 520;
+// variables for moving 
 let up = 1;
 let left= 2
 let right = 3;
 let down = 0;
-let faceDirection = up;
 let straight;
+let turn = 1;
 
+//player 1
+let faceDirection = up;
+let spriteX = 455;
+let spriteY = 520;
 let player1Score = 0;
+
+//player 2
+let p2FaceDirection = up;
+let p2SpriteX = 519;
+let p2SpriteY = 520;
+let p2Player1Score = 0;
 
 
 const map = new Image();
 map.src = "./img/Board.png";
+
 const player1Image = new Image();
 player1Image.src= "./img/sprite.png";
+const player2Image = new Image();
+player2Image.src = "./img/player2.png"
 
 //does the sprite sheet maths for us
 // credit/tutorial used to figure this out---https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
@@ -155,56 +166,84 @@ function animate() {
         point.draw()
     })
     drawFrame(0, faceDirection, spriteX, spriteY, player1Image)
+    drawFrame(0, p2FaceDirection, p2SpriteX, p2SpriteY, player2Image)
 }
 
 function move(direction) {
     //right
     if (direction ==right) {
-        if (faceDirection == up) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        faceDirection = right;
-        drawFrame (0, right, spriteX, spriteY);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (turn === 1) {
+            if (faceDirection == up) {
+                faceDirection = right;
+            }
+            else if (faceDirection == right) {
+                faceDirection = down;
+            }
+            else if (faceDirection == down) {
+                faceDirection =left;
+            }
+            else if (faceDirection == left) {
+                faceDirection =up;
+            }
         }
-        else if (faceDirection == right) {
-             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            faceDirection = down;
-        drawFrame (0, down, spriteX, spriteY); 
-        }
-        else if (faceDirection == down) {
-             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            faceDirection =left;
-        drawFrame (0, left, spriteX, spriteY); 
-        }
-        else if (faceDirection == left) {
-             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            faceDirection =up;
-        drawFrame (0, faceDirection, spriteX, spriteY); 
+        else if (turn === 2) {
+            if (p2FaceDirection == up) {
+                p2FaceDirection = right;
+            }
+            else if (p2FaceDirection == right) {
+                p2FaceDirection = down;
+            }
+            else if (p2FaceDirection == down) {
+                p2FaceDirection =left;
+            }
+            else if (p2FaceDirection == left) {
+                p2FaceDirection =up;
+            }
         }
     }
 
     // left
     if (direction == left) {
-        if (faceDirection == up) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        faceDirection = left;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (turn === 1) {
+            if (faceDirection == up) {
+                faceDirection = left;
+                }
+            else if (faceDirection == right) {
+                faceDirection =up;
+                }
+            else if (faceDirection == down) {
+                faceDirection =right;
+                }
+            else if (faceDirection == left) {
+                faceDirection =down;
+                  }
         }
-        else if (faceDirection == right) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        faceDirection =up;
+        else if (turn === 2) {
+            if (p2FaceDirection == up) {
+                p2FaceDirection = left;
+                }
+            else if (p2FaceDirection == right) {
+                p2FaceDirection =up;
+                }
+            else if (p2FaceDirection == down) {
+                p2FaceDirection =right;
+                }
+            else if (p2FaceDirection == left) {
+                p2FaceDirection =down;
+                  }
         }
-        else if (faceDirection == down) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        faceDirection =right;
-        }
-        else if (faceDirection == left) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        faceDirection =down;
-          }
+       
     }
 
     if (direction == straight) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         switch (faceDirection) {
             case up: 
+                
                 spriteY -= 64;
                 if (spriteY < 0) {
                     spriteY = 520;
