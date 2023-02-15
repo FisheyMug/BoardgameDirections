@@ -3,10 +3,18 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "Tiles/Board.tmx",
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "Tiles/Board.tmx": {
+            "scale": 0.570556640625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.6572528883183,
+                "y": 290.06760804450147
+            }
+        },
         "Tiles/Floor - Grass 1 64x64.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -16,16 +24,20 @@
             "scaleInEditor": 1
         }
     },
+    "last.exportedFilePath": "/home/fisheymug/Programming/Projects/BoardgameDirections/Tiles",
     "last.imagePath": "/home/fisheymug/Programming/Projects/BoardgameDirections/Tiles",
     "map.height": 9,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 64,
     "map.tileWidth": 64,
     "map.width": 16,
     "openFiles": [
+        "Tiles/Board.tmx"
     ],
     "project": "Boardgame.tiled-project",
     "recentFiles": [
+        "Tiles/Board.tmx",
         "Tiles/chest_closed.tsx",
         "Tiles/Floor - Grass 1 64x64.tsx"
     ],
