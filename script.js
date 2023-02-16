@@ -4,34 +4,24 @@ const ctx = canvas.getContext("2d");
 canvas.width = 1024
 canvas.height = 576;
 
-// variables for animation scaling/maths of player sprite
+// variables for moving 
 const scale = 3;
 const width = 16;
 const height = 18;
 const scaledWidth = scale * width;
 const scaledHeight = scale * height;
-
-
-// variables for moving 
 let up = 1;
-let left= 2
+let left = 2;
 let right = 3;
 let down = 0;
 let straight;
 let turn = 1;
 
-//player 1
-let faceDirection = up;
-let spriteX = 455;
-let spriteY = 520;
-let player1Score = 0;
-
-//player 2
-let p2FaceDirection = up;
-let p2SpriteX = 519;
-let p2SpriteY = 520;
-let p2Player1Score = 0;
-
+//does the sprite sheet maths for us
+// credit/tutorial used to figure this out---https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
+function drawFrame (frameX, frameY, canvasX, canvasY, img) {
+    ctx.drawImage(img, frameX * width, frameY * height, width, height, canvasX, canvasY, scaledWidth, scaledHeight);
+}
 
 const map = new Image();
 map.src = "./img/Board.png";
@@ -41,21 +31,31 @@ player1Image.src= "./img/sprite.png";
 const player2Image = new Image();
 player2Image.src = "./img/player2.png"
 
-//does the sprite sheet maths for us
-// credit/tutorial used to figure this out---https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
-function drawFrame (frameX, frameY, canvasX, canvasY, img) {
-    ctx.drawImage(img, frameX * width, frameY*height, width, height, canvasX, canvasY, scaledWidth, scaledHeight);
-}
-
 class Sprite {
-    constructor({position, velocity, image}) {
+    // variables for animation scaling/maths of player sprite
+    constructor({ position, image }) {
         this.position = position
         this.image = image
+
+        this.score = 0;
+
+        this.faceDirection = up;
+        this.scale = 3;
+        this.width = 16;
+        this.height = 18;
+        this.scaledWidth = scale * width;
+        this.scaledHeight = scale * height;
+        this.up = 1;
+        this.left = 2;
+        this.right = 3;
+        this.down = 0;
+        this.straight = ""; 
     }
 
-    draw () {
+    draw() {
         ctx.drawImage(this.image, this.position.x, this.position.y)
     }
+
 }
 
 const board = new Sprite({
@@ -64,6 +64,22 @@ const board = new Sprite({
         y: 0
     },
     image: map
+})
+
+const player1 = new Sprite({
+    position: {
+        x: 455,
+        y: 520
+    },
+    image: player1Image
+})
+
+const player2 = new Sprite({
+    position: {
+        x: 519,
+        y: 520
+    },
+    image: player2Image
 })
 
 const collisionsMap = []
@@ -129,7 +145,6 @@ const x = event.offsetX
 const y = event.offsetY
 console.log(x, y)
 }
-
 canvas.addEventListener('mousedown', (e) => {
 getCursorPosition(canvas, e)
 })
@@ -165,8 +180,8 @@ function animate() {
     chestBoundaries.forEach( point => {
         point.draw()
     })
-    drawFrame(0, faceDirection, spriteX, spriteY, player1Image)
-    drawFrame(0, p2FaceDirection, p2SpriteX, p2SpriteY, player2Image)
+    drawFrame(0, player1.faceDirection, player1.position.x, player1.position.y, player1Image)
+    drawFrame(0, player2.faceDirection, player2.position.x, player2.position.y, player2Image)
 }
 
 function move(direction) {
@@ -175,31 +190,31 @@ function move(direction) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         if (turn === 1) {
-            if (faceDirection == up) {
-                faceDirection = right;
+            if (player1.faceDirection == up) {
+                player1.faceDirection = right;
             }
-            else if (faceDirection == right) {
-                faceDirection = down;
+            else if (player1.faceDirection == right) {
+                player1.faceDirection = down;
             }
-            else if (faceDirection == down) {
-                faceDirection =left;
+            else if (player1.faceDirection == down) {
+                player1.faceDirection =left;
             }
-            else if (faceDirection == left) {
-                faceDirection =up;
+            else if (player1.faceDirection == left) {
+                player1.faceDirection =up;
             }
         }
         else if (turn === 2) {
-            if (p2FaceDirection == up) {
-                p2FaceDirection = right;
+            if (player2.faceDirection == up) {
+                player2.faceDirection = right;
             }
-            else if (p2FaceDirection == right) {
-                p2FaceDirection = down;
+            else if (player2.faceDirection == right) {
+                player2.faceDirection = down;
             }
-            else if (p2FaceDirection == down) {
-                p2FaceDirection =left;
+            else if (player2.faceDirection == down) {
+                player2.faceDirection =left;
             }
-            else if (p2FaceDirection == left) {
-                p2FaceDirection =up;
+            else if (player2.faceDirection == left) {
+                player2.faceDirection =up;
             }
         }
     }
@@ -209,31 +224,31 @@ function move(direction) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         if (turn === 1) {
-            if (faceDirection == up) {
-                faceDirection = left;
+            if (player1.faceDirection == up) {
+                player1.faceDirection = left;
                 }
-            else if (faceDirection == right) {
-                faceDirection =up;
+            else if (player1.faceDirection == right) {
+                player1.faceDirection =up;
                 }
-            else if (faceDirection == down) {
-                faceDirection =right;
+            else if (player1.faceDirection == down) {
+                player1.faceDirection =right;
                 }
-            else if (faceDirection == left) {
-                faceDirection =down;
+            else if (player1.faceDirection == left) {
+                player1.faceDirection =down;
                   }
         }
         else if (turn === 2) {
-            if (p2FaceDirection == up) {
-                p2FaceDirection = left;
+            if (player2.faceDirection == up) {
+                player2.faceDirection = left;
                 }
-            else if (p2FaceDirection == right) {
-                p2FaceDirection =up;
+            else if (player2.faceDirection == right) {
+                player2.faceDirection =up;
                 }
-            else if (p2FaceDirection == down) {
-                p2FaceDirection =right;
+            else if (player2.faceDirection == down) {
+                player2.faceDirection =right;
                 }
-            else if (p2FaceDirection == left) {
-                p2FaceDirection =down;
+            else if (player2.faceDirection == left) {
+                player2.faceDirection =down;
                   }
         }
        
@@ -241,33 +256,119 @@ function move(direction) {
 
     if (direction == straight) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        switch (faceDirection) {
-            case up: 
-                
-                spriteY -= 64;
-                if (spriteY < 0) {
-                    spriteY = 520;
+        if (turn === 1) {
+            switch (player1.faceDirection) {
+                case up:
+                    player1.position.y -= 64;
+                    if (player1.position.y < 0) {
+                        player1.position.y = 520;
+                    }
+                    
+                    break;
+                case right:
+                    player1.position.x += 64;
+                    if (player1.position.x > 967) {
+                        player1.position.x = 7
+                    }
+                    break;
+                case down:
+                    player1.position.y += 64;
+                    if (player1.position.y > 520) {
+                        player1.position.y = 8
+                    }
+                    break;
+                case left:
+                    player1.position.x -= 64;
+                    if (player1.position.x < 7) {
+                        player1.position.x = 967;
+                    }
+                    break;
+            }
+            for (let i=0; i<boundaries.length; i++) {
+                const boundary = boundaries[i];
+                if (rectangularCollision({
+                    rectangl1: player1,
+                    rectangle2: {...boundary, position: {
+                        x: boundary.position.x,
+                        y: boundary.position.y
+                    }}
+                })) {
+                    player1.score -= 2;
+                    console.log(player1.score)
                 }
-            break;
-            case right:
-                spriteX +=64;
-                if (spriteX > 967) {
-                    spriteX = 7
+            }
+
+            for (let i=0; i< chestBoundaries.length; i++) {
+                const chest = chestBoundaries[i];
+                if (rectangularCollision({
+                    rectangl1: player1,
+                    rectangle2: {...chest, position: {
+                        x: chest.position.x,
+                        y: chest.position.y
+                    }}
+                })) {
+                    player1.score += 3;
+                    console.log(player1.score)
                 }
-            break;
-            case down:
-                spriteY +=64;
-                if (spriteY > 520) {
-                    spriteY = 8
+            }
+
+        } else if (turn === 2) {
+            switch (player2.faceDirection) {
+                case up:
+                    player2.position.y -= 64;
+                    if (player2.position.y < 0) {
+                        player2.position.y = 520;
+                    }
+                break;
+                case right:
+                    player2.position.x +=64;
+                        if (player2.position.x > 967) {
+                            player2.position.x = 7
+                        }                    
+                break;
+                case down:
+                    player2.position.y +=64;
+                        if (player2.position.y > 520) {
+                            player2.position.y = 8
+                        }
+                break;
+                case left:
+                    player2.position.x -=64;
+                        if (player2.position.x < 7) {
+                            player2.position.x = 967;
+                        }
+                break;
+            }
+
+            for (let i=0; i<boundaries.length; i++) {
+                const boundary = boundaries[i];
+                if (rectangularCollision({
+                    rectangl1: player2,
+                    rectangle2: {...boundary, position: {
+                        x: boundary.position.x,
+                        y: boundary.position.y
+                    }}
+                })) {
+                    player2.score -= 2;
+                    console.log(player2.score)
                 }
-            break;
-            case left:
-                spriteX -=64;
-                if (spriteX < 7) {
-                    spriteX = 967;
+            }
+
+            for (let i=0; i< chestBoundaries.length; i++) {
+                const chest = chestBoundaries[i];
+                if (rectangularCollision({
+                    rectangl1: player2,
+                    rectangle2: {...chest, position: {
+                        x: chest.position.x,
+                        y: chest.position.y
+                    }}
+                })) {
+                    player2.score += 3;
+                    console.log(player2.score)
                 }
-            break;
+            }
         }
+        
     }
 }
 
