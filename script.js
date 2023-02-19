@@ -23,13 +23,16 @@ function drawFrame (frameX, frameY, canvasX, canvasY, img) {
     ctx.drawImage(img, frameX * width, frameY * height, width, height, canvasX, canvasY, scaledWidth, scaledHeight);
 }
 
+
+//images
 const map = new Image();
 map.src = "./img/Board.png";
-
 const player1Image = new Image();
 player1Image.src= "./img/sprite.png";
 const player2Image = new Image();
 player2Image.src = "./img/player2.png"
+
+
 
 class Sprite {
     // variables for animation scaling/maths of player sprite
@@ -102,7 +105,7 @@ class Boundary {
     }
 
     draw() {
-        ctx.fillStyle = "red"
+        ctx.fillStyle = "rgba(255, 0, 0, 0)"
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
