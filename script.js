@@ -5,7 +5,7 @@ canvas.height = 565;
 
 const p1Score = document.getElementById("p1Score");
 const p2Score = document.getElementById("p2Score");
-const rollButton = document.querySelector("button");
+const rollButton = document.getElementById("rollButton");
 const rollModal = document.getElementById("RollModal")
 
 const p1Direction = document.getElementById("p1Direction")

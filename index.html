@@ -9,20 +9,34 @@
 </head>
 <body>
     <div id="p1Container" class="container">
-        <div>Player 1 Score: <span id="p1Score"></span> </div>
-        <div>Go... <span id="p1Direction"></span></div>
+        <div><p class="playerInfo">Player 1 Score: <span id="p1Score"></span></p></div>
+        <div><p class="playerInfo">Go... <br><span id="p1Direction"></span></p></div>
+        <div class="buttonBox">
+            <div class="straightBox"> <button class="straight">&#x2191; <br> Go Straight </button> </div>
+            <div class="leftRightBox">
+                <button class="left"> &#8624;<br>  Turn Left  </button>
+                <button class="right"> &#8625; <br> Turn Right </button>
+            </div>
+        </div>
     </div>
     <div id="RollModal">
         <div class="box">
             <h1 class="title">Click to Roll!</h1>
             <p>Go.....</p>
-            <button>Roll</button>
+            <button id="rollButton">Roll</button>
         </div>
     </div>
     <canvas></canvas>
     <div id="p2Container" class="container">
-        <div>Player 2 Score: <span id="p2Score"></span> </div>
-        <div>Go... <span id="p2Direction"></span></div>
+        <div><p class="playerInfo">Player 2 Score: <span id="p2Score"></span></p></div>
+        <div><p class="playerInfo">Go... <br><span id="p2Direction"></span></p></div>
+        <div class="buttonBox">
+            <div class="straightBox"> <button class="straight">&#x2191; <br> Go Straight </button> </div>
+            <div class="leftRightBox">
+                <button class="left"> &#8624;<br>  Turn Left  </button>
+                <button class="right"> &#8625; <br> Turn Right </button>
+            </div>
+        </div>
     </div>
     <script src="./data/collisions.js"></script>
     <script src="script.js"></script>

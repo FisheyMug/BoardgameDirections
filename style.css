@@ -13,6 +13,62 @@ body {
     width: 50%;
 }
 
+.playerInfo {
+    font-size: larger;
+    font-weight: bold;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#p1Container {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    color: green;
+}
+
+#p2Container {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    color: red;
+}
+
+.buttonBox {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50vh;
+}
+
+.straightBox {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.leftRightBox {
+    display: flex;
+
+}
+
+
+.left {
+    width: 50%;
+    margin: 2px;
+}
+
+.right {
+    width: 50%;
+    margin: 2px;
+}
+
+.straight {
+    width: 75%;
+    margin: 3px;
+}
+
 #RollModal {
     position: fixed;
     top: 35%;
@@ -28,8 +84,14 @@ body {
     padding: 15px;
 }
 
-button {
+#rollButton {
     background-color: crimson;
     padding: 15px;
     border-radius: 8px;
+}
+
+button {
+    background-color: crimson;
+    border-radius: 8px;
+    padding: 5px;
 }
