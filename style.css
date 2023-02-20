@@ -12,3 +12,22 @@ body {
 .container {
     width: 50%;
 }
+
+#RollModal {
+    position: fixed;
+    top: 35%;
+    left: 45%;
+    transform: translate(-50%, 0);
+}
+
+.box {
+    color: black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px;
+}
+
+button {
+    background-color: crimson;
+}

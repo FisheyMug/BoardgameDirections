@@ -5,7 +5,10 @@ canvas.height = 576;
 
 const p1Score = document.getElementById("p1Score");
 const p2Score = document.getElementById("p2Score");
+const rollButton = document.querySelector("button");
 
+const p1Direction = document.getElementById("p1Direction")
+const  p2Direction = document.getElementById("p2Direction");
 
 // variables for moving 
 const scale = 3;
@@ -379,6 +382,50 @@ function move(direction) {
         
     }
 }
+
+function roll() {
+    let result = Math.round(Math.random() * (6-1) + 1);
+    switch (result) {
+        case 1:
+            if (turn === 1) {
+                p1Direction.innerHTML = "Stop";
+            }
+            if (turn ===2) {
+                p2Direction.innerHTML = "Stop";
+            }
+            break;
+        case 2:
+        case 3:
+            if (turn=== 1) {
+            p1Direction.innerHTML = "Left"
+            }
+            if (turn ===2) {
+                p2Direction.innerHTML = "Left";
+            }
+            break;
+        case 4:
+        case 5:
+            if (turn === 1) {
+                p1Direction.innerHTML = "Right"
+            }
+            if (turn === 2) {
+                p2Direction.innerHTML = "Right";
+            }
+            break;
+        case 6:
+            if (turn === 1) {
+                p1Direction.innerHTML =  "Straight"
+            }
+            if (turn === 2) {
+                p2Direction.innerHTML = "Straight";
+            }
+            break;
+    }
+}
+
+rollButton.addEventListener("click", ()=>{
+    roll();
+})
 
 
 animate();
