@@ -1,7 +1,7 @@
 const canvas= document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 1024
-canvas.height = 576;
+canvas.height = 565;
 
 const p1Score = document.getElementById("p1Score");
 const p2Score = document.getElementById("p2Score");
@@ -9,6 +9,13 @@ const rollButton = document.querySelector("button");
 
 const p1Direction = document.getElementById("p1Direction")
 const  p2Direction = document.getElementById("p2Direction");
+const p1Container = document.getElementById("p1Container");
+const p2Container = document.getElementById("p2Container");
+
+
+let ready = false;
+let waiting = true;
+let readyDirection;
 
 // variables for moving 
 const scale = 3;
@@ -159,15 +166,21 @@ getCursorPosition(canvas, e)
 })
 
 document.addEventListener("keydown", function(event){
-if(event.key === "ArrowUp"){
-    move(straight);
-}
-else if (event.key === "ArrowLeft") {
-    move(left)
-}
-else if (event.key === "ArrowRight") {
-    move(right)
-}
+    if (ready) {
+        if (readyDirection === straight && event.key === "ArrowUp") {
+            move(straight);
+            ready = false;
+            waiting = true;
+        } else if (readyDirection=== left && event.key === "ArrowLeft") {
+            move(left)
+            ready = false;
+            waiting = true;
+        } else if (readyDirection === right && event.key === "ArrowRight") {
+            move(right)
+            ready = false;
+            waiting = true;
+        }
+    }
 });
 
 //collision detection for points;
@@ -384,43 +397,75 @@ function move(direction) {
 }
 
 function roll() {
-    let result = Math.round(Math.random() * (6-1) + 1);
-    switch (result) {
-        case 1:
-            if (turn === 1) {
-                p1Direction.innerHTML = "Stop";
-            }
-            if (turn ===2) {
-                p2Direction.innerHTML = "Stop";
-            }
-            break;
-        case 2:
-        case 3:
-            if (turn=== 1) {
-            p1Direction.innerHTML = "Left"
-            }
-            if (turn ===2) {
-                p2Direction.innerHTML = "Left";
-            }
-            break;
-        case 4:
-        case 5:
-            if (turn === 1) {
-                p1Direction.innerHTML = "Right"
-            }
-            if (turn === 2) {
-                p2Direction.innerHTML = "Right";
-            }
-            break;
-        case 6:
-            if (turn === 1) {
-                p1Direction.innerHTML =  "Straight"
-            }
-            if (turn === 2) {
-                p2Direction.innerHTML = "Straight";
-            }
-            break;
+    if (waiting) {
+        let result = Math.round(Math.random() * (6-1) + 1);
+        ready = true;
+        waiting = false;
+        switch (result) {
+            case 1:
+                readyDirection = stop;
+                waiting = true;
+                if (turn === 1) {
+                    p1Direction.innerHTML = "Stop";
+                }
+                if (turn ===2) {
+                    p2Direction.innerHTML = "Stop";
+                }
+                if (turn === 1) turn = 2;
+                else if (turn === 2) turn = 1;
+                waiting = true;
+                break;
+            case 2:
+                readyDirection = left;
+                if (turn=== 1) {
+                p1Direction.innerHTML = "Left"
+                }
+                if (turn ===2) {
+                    p2Direction.innerHTML = "Left";
+                }
+                break;
+            case 3:
+                readyDirection = right
+                if (turn === 1) {
+                    p1Direction.innerHTML = "Right"
+                }
+                if (turn === 2) {
+                    p2Direction.innerHTML = "Right";
+                }
+                break;
+            case 4:
+                if (Math.round(Math.random() * (4 - 1) + 1) < 2) {
+                    readyDirection = left;
+                    if (turn === 1) {
+                        p1Direction.innerHTML = "Left"
+                    }
+                    if (turn === 2) {
+                        p2Direction.innerHTML = "Left";
+                    }
+                } else {
+                    readyDirection = right
+                    if (turn === 1) {
+                    p1Direction.innerHTML = "Right"
+                    }
+                    if (turn === 2) {
+                    p2Direction.innerHTML = "Right";
+                    }
+                }
+                break;
+            case 5:
+            case 5:
+                readyDirection = straight
+                if (turn === 1) {
+                    p1Direction.innerHTML =  "Straight"
+                }
+                if (turn === 2) {
+                    p2Direction.innerHTML = "Straight";
+                }
+                break;
+        }   
+        
     }
+    
 }
 
 rollButton.addEventListener("click", ()=>{
