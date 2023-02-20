@@ -6,6 +6,7 @@ canvas.height = 565;
 const p1Score = document.getElementById("p1Score");
 const p2Score = document.getElementById("p2Score");
 const rollButton = document.querySelector("button");
+const rollModal = document.getElementById("RollModal")
 
 const p1Direction = document.getElementById("p1Direction")
 const  p2Direction = document.getElementById("p2Direction");
@@ -16,6 +17,16 @@ const p2Container = document.getElementById("p2Container");
 let ready = false;
 let waiting = true;
 let readyDirection;
+
+function highlighter() {
+    if (turn === 1) {
+        p1Container.style.border = "2px solid yellow"
+    } else p1Container.style.border = ""
+    if (turn === 2) {
+        p2Container.style.border = "2px solid yellow"
+    } else p2Container.style.border = ""
+    
+}
 
 // variables for moving 
 const scale = 3;
@@ -155,15 +166,15 @@ chestCollisionMap.forEach ((row, i) => {
     })
 })
 
-//function to help figure out canvas coordinates
-const getCursorPosition = (canvas, event) => {
-const x = event.offsetX
-const y = event.offsetY
-console.log(x, y)
-}
-canvas.addEventListener('mousedown', (e) => {
-getCursorPosition(canvas, e)
-})
+// //function to help figure out canvas coordinates
+// const getCursorPosition = (canvas, event) => {
+// const x = event.offsetX
+// const y = event.offsetY
+// console.log(x, y)
+// }
+// canvas.addEventListener('mousedown', (e) => {
+// getCursorPosition(canvas, e)
+// })
 
 document.addEventListener("keydown", function(event){
     if (ready) {
@@ -171,14 +182,23 @@ document.addEventListener("keydown", function(event){
             move(straight);
             ready = false;
             waiting = true;
+            p1Direction.innerHTML= ""
+            p2Direction.innerHTML= ""
+            rollModal.style.display = "flex"
         } else if (readyDirection=== left && event.key === "ArrowLeft") {
             move(left)
             ready = false;
             waiting = true;
+            p1Direction.innerHTML= ""
+            p2Direction.innerHTML= ""
+            rollModal.style.display = "flex"
         } else if (readyDirection === right && event.key === "ArrowRight") {
             move(right)
             ready = false;
             waiting = true;
+            p1Direction.innerHTML= ""
+            p2Direction.innerHTML= ""
+            rollModal.style.display = "flex"
         }
     }
 });
@@ -195,6 +215,9 @@ function rectangularCollision({rectangl1, rectangle2}) {
 
 function animate() {
     requestAnimationFrame(animate)
+    if (readyDirection === stop) {
+        rollModal.style.display = "flex"
+    }
     board.draw();
     boundaries.forEach( point => {
         point.draw()
@@ -206,6 +229,7 @@ function animate() {
     drawFrame(0, player2.faceDirection, player2.position.x, player2.position.y, player2Image)
     p1Score.innerHTML = player1.score;
     p2Score.innerHTML = player2.score;
+    highlighter()
 }
 
 function move(direction) {
@@ -404,7 +428,6 @@ function roll() {
         switch (result) {
             case 1:
                 readyDirection = stop;
-                waiting = true;
                 if (turn === 1) {
                     p1Direction.innerHTML = "Stop";
                 }
@@ -414,6 +437,7 @@ function roll() {
                 if (turn === 1) turn = 2;
                 else if (turn === 2) turn = 1;
                 waiting = true;
+                rollModal.style.display = "flex"
                 break;
             case 2:
                 readyDirection = left;
@@ -453,7 +477,7 @@ function roll() {
                 }
                 break;
             case 5:
-            case 5:
+            case 6:
                 readyDirection = straight
                 if (turn === 1) {
                     p1Direction.innerHTML =  "Straight"
@@ -470,6 +494,7 @@ function roll() {
 
 rollButton.addEventListener("click", ()=>{
     roll();
+    rollModal.style.display = "none"
 })
 
 

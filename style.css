@@ -30,4 +30,6 @@ body {
 
 button {
     background-color: crimson;
+    padding: 15px;
+    border-radius: 8px;
 }
