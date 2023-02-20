@@ -1,8 +1,11 @@
 const canvas= document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
-
 canvas.width = 1024
 canvas.height = 576;
+
+const p1Score = document.getElementById("p1Score");
+const p2Score = document.getElementById("p2Score");
+
 
 // variables for moving 
 const scale = 3;
@@ -185,6 +188,8 @@ function animate() {
     })
     drawFrame(0, player1.faceDirection, player1.position.x, player1.position.y, player1Image)
     drawFrame(0, player2.faceDirection, player2.position.x, player2.position.y, player2Image)
+    p1Score.innerHTML = player1.score;
+    p2Score.innerHTML = player2.score;
 }
 
 function move(direction) {
@@ -374,6 +379,7 @@ function move(direction) {
         
     }
 }
+
 
 animate();
 

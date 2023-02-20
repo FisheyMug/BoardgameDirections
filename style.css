@@ -1,8 +1,14 @@
 * {
     margin: 0;
     padding: 0;
+    color: azure;
 }
 
 body {
     background-color: black;
+    display: flex;
+}
+
+.container {
+    width: 50%;
 }
