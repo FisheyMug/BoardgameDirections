@@ -225,8 +225,15 @@ function animate() {
     chestBoundaries.forEach( point => {
         point.draw()
     })
-    drawFrame(0, player1.faceDirection, player1.position.x, player1.position.y, player1Image)
-    drawFrame(0, player2.faceDirection, player2.position.x, player2.position.y, player2Image)
+
+    if(turn === 1) {
+        drawFrame(0, player1.faceDirection, player1.position.x, player1.position.y, player1Image)
+        drawFrame(0, player2.faceDirection, player2.position.x, player2.position.y, player2Image)
+    }
+    if (turn === 2) {
+        drawFrame(0, player2.faceDirection, player2.position.x, player2.position.y, player2Image)
+        drawFrame(0, player1.faceDirection, player1.position.x, player1.position.y, player1Image)
+    }
     p1Score.innerHTML = player1.score;
     p2Score.innerHTML = player2.score;
     highlighter()
@@ -458,24 +465,6 @@ function roll() {
                 }
                 break;
             case 4:
-                if (Math.round(Math.random() * (4 - 1) + 1) < 2) {
-                    readyDirection = left;
-                    if (turn === 1) {
-                        p1Direction.innerHTML = "Left"
-                    }
-                    if (turn === 2) {
-                        p2Direction.innerHTML = "Left";
-                    }
-                } else {
-                    readyDirection = right
-                    if (turn === 1) {
-                    p1Direction.innerHTML = "Right"
-                    }
-                    if (turn === 2) {
-                    p2Direction.innerHTML = "Right";
-                    }
-                }
-                break;
             case 5:
             case 6:
                 readyDirection = straight
