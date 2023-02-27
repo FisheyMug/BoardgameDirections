@@ -1,7 +1,8 @@
 const canvas= document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
+
 canvas.width = 1024
-canvas.height = 565;
+canvas.height = 576
 
 const p1Score = document.getElementById("p1Score");
 const p2Score = document.getElementById("p2Score");
@@ -13,6 +14,9 @@ const  p2Direction = document.getElementById("p2Direction");
 const p1Container = document.getElementById("p1Container");
 const p2Container = document.getElementById("p2Container");
 
+const straightButton = document.getElementsByClassName("straight");
+const leftButton = document.getElementsByClassName("left");
+const rightButton = document.getElementsByClassName("right");
 
 let ready = false;
 let waiting = true;
@@ -203,6 +207,53 @@ document.addEventListener("keydown", function(event){
     }
 });
 
+for (i = 0; i< straightButton.length; i++) {
+    straightButton[i].addEventListener("click", () => {
+        if (ready) {
+            if (readyDirection === straight) {
+                move(straight);
+                ready = false;
+                waiting = true;
+                p1Direction.innerHTML= ""
+                p2Direction.innerHTML= ""
+                rollModal.style.display = "flex"
+            }
+        }
+    }); 
+}
+
+for (i = 0; i< leftButton.length; i++) {
+    leftButton[i].addEventListener("click", () => {
+        if (ready) {
+            if (readyDirection === left) {
+                move(left);
+                ready = false;
+                waiting = true;
+                p1Direction.innerHTML= ""
+                p2Direction.innerHTML= ""
+                rollModal.style.display = "flex"
+            }
+        }
+    }); 
+}
+
+
+for (i = 0; i< rightButton.length; i++) {
+    rightButton[i].addEventListener("click", () => {
+        if (ready) {
+            if (readyDirection === right) {
+                move(right);
+                ready = false;
+                waiting = true;
+                p1Direction.innerHTML= ""
+                p2Direction.innerHTML= ""
+                rollModal.style.display = "flex"
+            }
+        }
+    }); 
+}
+
+
 //collision detection for points;
 function rectangularCollision({rectangl1, rectangle2}) {
     return (
@@ -349,7 +400,6 @@ function move(direction) {
                     }}
                 })) {
                     player1.score -= 2;
-                    console.log(player1.score)
                 }
             }
 
@@ -363,7 +413,6 @@ function move(direction) {
                     }}
                 })) {
                     player1.score += 3;
-                    console.log(player1.score)
                 }
             }
 
@@ -405,7 +454,6 @@ function move(direction) {
                     }}
                 })) {
                     player2.score -= 2;
-                    console.log(player2.score)
                 }
             }
 
@@ -419,7 +467,6 @@ function move(direction) {
                     }}
                 })) {
                     player2.score += 3;
-                    console.log(player2.score)
                 }
             }
         }

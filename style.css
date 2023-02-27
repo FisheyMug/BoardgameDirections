@@ -1,12 +1,12 @@
 * {
     margin: 0;
     padding: 0;
-    color: azure;
 }
 
 body {
     background-color: black;
     display: flex;
+    max-height: 100vh;
 }
 
 .container {
@@ -26,20 +26,58 @@ body {
     display: flex;
     flex-direction: column;
     padding: 15px;
+}
+
+.p1 {
     color: green;
+    font-size: x-large;
+    text-align: center;
+    margin: 5px;
+}
+
+#p1Score {
+    font-size: xx-large;
+    padding: 5px;
+}
+
+#p1Direction {
+    font-size: 1.4em;
+    height: 30px;
+    font-style: italic;
+    text-decoration: underline;
+    text-decoration-color: gold;
 }
 
 #p2Container {
     display: flex;
     flex-direction: column;
     padding: 15px;
+}
+
+.p2 {
     color: red;
+    font-size: x-large;
+    text-align: center;
+    margin: 5px;
+}
+
+#p2Score {
+    font-size: xx-large;
+    padding: 5px;
+}
+
+#p2Direction {
+    font-size: 1.4em;
+    height: 30px;
+    font-style: italic;
+    text-decoration: underline;
+    text-decoration-color: gold;
 }
 
 .buttonBox {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 50vh;
+    margin-top: 60%;
 }
 
 .straightBox {
@@ -70,9 +108,10 @@ body {
 }
 
 #RollModal {
+    background-color: grey;
     position: fixed;
-    top: 35%;
-    left: 45%;
+    top: 40%;
+    left: 50%;
     transform: translate(-50%, 0);
 }
 
@@ -95,3 +134,4 @@ button {
     border-radius: 8px;
     padding: 5px;
 }
+

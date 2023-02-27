@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv='cache-control' content='no-cache'> 
+    <meta http-equiv='expires' content='0'> 
+    <meta http-equiv='pragma' content='no-cache'>
     <link rel="stylesheet" href="style.css">
     <title>Directions Boardgame</title>
 </head>
 <body>
     <div id="p1Container" class="container">
-        <div><p class="playerInfo">Player 1 Score: <span id="p1Score"></span></p></div>
-        <div><p class="playerInfo">Go... <br><span id="p1Direction"></span></p></div>
+        <div><p class="playerInfo p1">Player 1 Score: <span id="p1Score" class="p1"></span></p></div>
+        <div><p class="playerInfo p1">Go...</p></div>
+        <div><p class="playerInfo p1"><span id="p1Direction" class="p1"></span></p></div>
         <div class="buttonBox">
             <div class="straightBox"> <button class="straight">&#x2191; <br> Go Straight </button> </div>
             <div class="leftRightBox">
@@ -28,8 +32,9 @@
     </div>
     <canvas></canvas>
     <div id="p2Container" class="container">
-        <div><p class="playerInfo">Player 2 Score: <span id="p2Score"></span></p></div>
-        <div><p class="playerInfo">Go... <br><span id="p2Direction"></span></p></div>
+        <div><p class="playerInfo p2">Player 2 Score: <span id="p2Score" class="p2"></span></p></div>
+        <div><p class="playerInfo p2">Go...</p></div>
+        <div><p class="playerInfo p2"><span id="p2Direction" class="p2"></span></p></div>
         <div class="buttonBox">
             <div class="straightBox"> <button class="straight">&#x2191; <br> Go Straight </button> </div>
             <div class="leftRightBox">
