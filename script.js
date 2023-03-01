@@ -205,7 +205,17 @@ document.addEventListener("keydown", function(event){
             rollModal.style.display = "flex"
         }
     }
+
+    if (!ready) {
+        if (event.key === " " || event.key === "Enter") {
+            roll();
+            rollModal.style.display = "none"
+        }
+    }
+
+    console.log(event.key)
 });
+
 
 for (i = 0; i< straightButton.length; i++) {
     straightButton[i].addEventListener("click", () => {
@@ -494,6 +504,7 @@ function roll() {
                 else if (turn === 2) turn = 1;
                 waiting = true;
                 rollModal.style.display = "flex"
+                ready = false;
                 break;
             case 2:
                 readyDirection = left;
