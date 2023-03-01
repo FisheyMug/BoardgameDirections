@@ -10,8 +10,17 @@ body {
     max-height: 100vh;
 }
 
-.container {
-    width: 50%;
+#canvasContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 70%;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
 }
 
 .playerInfo {
@@ -21,12 +30,14 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    
 }
 
 #p1Container {
     display: flex;
     flex-direction: column;
     padding: 15px;
+    width: 15%;
 }
 
 .p1 {
@@ -53,6 +64,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 15px;
+    width: 15%;
 }
 
 .p2 {

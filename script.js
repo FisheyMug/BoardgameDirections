@@ -270,6 +270,8 @@ function animate() {
         rollModal.style.display = "flex"
     }
     board.draw();
+    // ctx.drawImage(map, 0, 0, canvas.width, canvas.height)
+
     boundaries.forEach( point => {
         point.draw()
     })
