@@ -24,7 +24,7 @@ canvas {
 }
 
 .playerInfo {
-    font-size: larger;
+    font-size: 55px;
     font-weight: bold;
     display: flex;
     flex-wrap: wrap;
@@ -42,7 +42,7 @@ canvas {
 
 .p1 {
     color: green;
-    font-size: x-large;
+    font-size: 40px;
     text-align: center;
     margin: 5px;
 }
@@ -53,7 +53,6 @@ canvas {
 }
 
 #p1Direction {
-    font-size: 2em;
     height: 30px;
     font-style: italic;
     text-decoration: underline;
@@ -69,7 +68,7 @@ canvas {
 
 .p2 {
     color: red;
-    font-size: x-large;
+    font-size: 40px;
     text-align: center;
     margin: 5px;
 }
@@ -80,7 +79,6 @@ canvas {
 }
 
 #p2Direction {
-    font-size: 2em;
     height: 30px;
     font-style: italic;
     text-decoration: underline;
