@@ -213,12 +213,13 @@ document.addEventListener("keydown", function(event){
         if (event.key === " " || event.key === "Enter") {
             roll();
             rollButton.style.display = "none"
-            if (turn === 1) {
+         
+            if (turn === 1 && readyDirection !=stop) {
                 modalSentence.innerHTML = p2Direction.innerHTML
-            }
-            if (turn === 2) {
+            } else if (turn === 2 && readyDirection !=stop) {
                 modalSentence.innerHTML = p1Direction.innerHTML
-            }
+            } else modalSentence.innerHTML = "Stop, Change Player!"
+
             setTimeout(() => {
                 if (readyDirection != stop) {
                     ready = true;
@@ -228,7 +229,7 @@ document.addEventListener("keydown", function(event){
                 rollModal.style.display = "none"
                 modalSentence.innerHTML = " "
             }, timer);
-            
+    
         }
     }
 });
@@ -508,20 +509,20 @@ function roll() {
         let result = Math.round(Math.random() * (6-1) + 1);
         switch (result) {
             case 1:
+            case 2:
                 readyDirection = stop;
                 if (turn === 1) {
-                    p2Direction.innerHTML = "Stop";
+                    p2Direction.innerHTML = "Stop, Change Player";
                 }
                 if (turn ===2) {
-                    p1Direction.innerHTML = "Stop";
+                    p1Direction.innerHTML = "Stop, Change Player";
                 }
                 if (turn === 1) turn = 2;
                 else if (turn === 2) turn = 1;
                 waiting = true;
-                rollModal.style.display = "flex"
                 ready = false;
                 break;
-            case 2:
+            case 3:
                 readyDirection = left;
                 if (turn=== 1) {
                 p2Direction.innerHTML = "Turn Left"
@@ -530,7 +531,7 @@ function roll() {
                     p1Direction.innerHTML = "Turn Left";
                 }
                 break;
-            case 3:
+            case 4:
                 readyDirection = right
                 if (turn === 1) {
                     p2Direction.innerHTML = "Turn Right"
@@ -539,7 +540,6 @@ function roll() {
                     p1Direction.innerHTML = "Turn Right";
                 }
                 break;
-            case 4:
             case 5:
             case 6:
                 readyDirection = straight
@@ -559,12 +559,13 @@ function roll() {
 rollButton.addEventListener("click", ()=>{
     roll();
     rollButton.style.display = "none"
-            if (turn === 1) {
+    
+            if (turn === 1 && readyDirection !=stop) {
                 modalSentence.innerHTML = p2Direction.innerHTML
-            }
-            if (turn === 2) {
+            } else if (turn === 2 && readyDirection !=stop) {
                 modalSentence.innerHTML = p1Direction.innerHTML
-            }
+            } else modalSentence.innerHTML = "Stop, Change Player!"
+
             setTimeout(() => {
                 if (readyDirection != stop) {
                     ready = true;
