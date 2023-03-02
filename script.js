@@ -46,7 +46,7 @@ let down = 0;
 let straight;
 let turn = 1;
 
-const timer = 1000;
+
 
 //does the sprite sheet maths for us
 // credit/tutorial used to figure this out---https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
@@ -211,24 +211,28 @@ document.addEventListener("keydown", function(event){
 
     if (!ready) {
         if (event.key === " " || event.key === "Enter") {
-            roll();
+            rollDice()
+            setTimeout(() => {
+                roll(); 
+                  
             rollButton.style.display = "none"
-         
+            
             if (turn === 1 && readyDirection !=stop) {
                 modalSentence.innerHTML = p2Direction.innerHTML
-            } else if (turn === 2 && readyDirection !=stop) {
-                modalSentence.innerHTML = p1Direction.innerHTML
-            } else modalSentence.innerHTML = "Stop, Change Player!"
-
+                } else if (turn === 2 && readyDirection !=stop) {
+                    modalSentence.innerHTML = p1Direction.innerHTML
+                } else modalSentence.innerHTML = "Stop, Change Player!"
+        
             setTimeout(() => {
-                if (readyDirection != stop) {
-                    ready = true;
-                    waiting = false;
-                }
-                rollButton.style.display = "block"
-                rollModal.style.display = "none"
-                modalSentence.innerHTML = " "
-            }, timer);
+                        if (readyDirection != stop) {
+                            ready = true;
+                            waiting = false;
+                        }
+                        rollButton.style.display = "block"
+                        rollModal.style.display = "none"
+                        modalSentence.innerHTML = " "
+                    }, timer);
+            }, 1500);
     
         }
     }
@@ -503,10 +507,10 @@ function move(direction) {
         
     }
 }
-
+const timer = 1000;
 function roll() {
     if (waiting) {
-        let result = Math.round(Math.random() * (6-1) + 1);
+        let result = randNum;
         switch (result) {
             case 1:
             case 2:
@@ -550,23 +554,26 @@ function roll() {
                     p1Direction.innerHTML = "Go Straight";
                 }
                 break;
-        }   
+        }  
         
     }
     
 }
 
 rollButton.addEventListener("click", ()=>{
-    roll();
+    rollDice()
+    setTimeout(() => {
+        roll(); 
+          
     rollButton.style.display = "none"
     
-            if (turn === 1 && readyDirection !=stop) {
-                modalSentence.innerHTML = p2Direction.innerHTML
-            } else if (turn === 2 && readyDirection !=stop) {
-                modalSentence.innerHTML = p1Direction.innerHTML
-            } else modalSentence.innerHTML = "Stop, Change Player!"
+    if (turn === 1 && readyDirection !=stop) {
+        modalSentence.innerHTML = p2Direction.innerHTML
+        } else if (turn === 2 && readyDirection !=stop) {
+            modalSentence.innerHTML = p1Direction.innerHTML
+        } else modalSentence.innerHTML = "Stop, Change Player!"
 
-            setTimeout(() => {
+    setTimeout(() => {
                 if (readyDirection != stop) {
                     ready = true;
                     waiting = false;
@@ -575,6 +582,8 @@ rollButton.addEventListener("click", ()=>{
                 rollModal.style.display = "none"
                 modalSentence.innerHTML = " "
             }, timer);
+    }, 1500);
+
     
 })
 
