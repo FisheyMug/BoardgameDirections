@@ -48,12 +48,12 @@ canvas {
 }
 
 #p1Score {
-    font-size: xx-large;
+    font-size: 50px;
     padding: 5px;
 }
 
 #p1Direction {
-    font-size: 1.4em;
+    font-size: 2em;
     height: 30px;
     font-style: italic;
     text-decoration: underline;
@@ -75,12 +75,12 @@ canvas {
 }
 
 #p2Score {
-    font-size: xx-large;
+    font-size: 50px;
     padding: 5px;
 }
 
 #p2Direction {
-    font-size: 1.4em;
+    font-size: 2em;
     height: 30px;
     font-style: italic;
     text-decoration: underline;
@@ -130,6 +130,11 @@ canvas {
     left: 50%;
     transform: translate(-50%, 0);
     font-size: 1.5em;
+}
+
+#modalSentence {
+    font-size: 100px;
+    font-weight: 900;
 }
 
 .box {

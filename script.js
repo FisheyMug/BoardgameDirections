@@ -13,6 +13,7 @@ const p1Direction = document.getElementById("p1Direction")
 const  p2Direction = document.getElementById("p2Direction");
 const p1Container = document.getElementById("p1Container");
 const p2Container = document.getElementById("p2Container");
+const modalSentence = document.getElementById("modalSentence")
 
 const straightButton = document.getElementsByClassName("straight");
 const leftButton = document.getElementsByClassName("left");
@@ -44,6 +45,8 @@ let right = 3;
 let down = 0;
 let straight;
 let turn = 1;
+
+const timer = 1000;
 
 //does the sprite sheet maths for us
 // credit/tutorial used to figure this out---https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
@@ -209,11 +212,25 @@ document.addEventListener("keydown", function(event){
     if (!ready) {
         if (event.key === " " || event.key === "Enter") {
             roll();
-            rollModal.style.display = "none"
+            rollButton.style.display = "none"
+            if (turn === 1) {
+                modalSentence.innerHTML = p2Direction.innerHTML
+            }
+            if (turn === 2) {
+                modalSentence.innerHTML = p1Direction.innerHTML
+            }
+            setTimeout(() => {
+                if (readyDirection != stop) {
+                    ready = true;
+                    waiting = false;
+                }
+                rollButton.style.display = "block"
+                rollModal.style.display = "none"
+                modalSentence.innerHTML = " "
+            }, timer);
+            
         }
     }
-
-    console.log(event.key)
 });
 
 
@@ -489,16 +506,14 @@ function move(direction) {
 function roll() {
     if (waiting) {
         let result = Math.round(Math.random() * (6-1) + 1);
-        ready = true;
-        waiting = false;
         switch (result) {
             case 1:
                 readyDirection = stop;
                 if (turn === 1) {
-                    p1Direction.innerHTML = "Stop";
+                    p2Direction.innerHTML = "Stop";
                 }
                 if (turn ===2) {
-                    p2Direction.innerHTML = "Stop";
+                    p1Direction.innerHTML = "Stop";
                 }
                 if (turn === 1) turn = 2;
                 else if (turn === 2) turn = 1;
@@ -509,19 +524,19 @@ function roll() {
             case 2:
                 readyDirection = left;
                 if (turn=== 1) {
-                p1Direction.innerHTML = "Left"
+                p2Direction.innerHTML = "Turn Left"
                 }
                 if (turn ===2) {
-                    p2Direction.innerHTML = "Left";
+                    p1Direction.innerHTML = "Turn Left";
                 }
                 break;
             case 3:
                 readyDirection = right
                 if (turn === 1) {
-                    p1Direction.innerHTML = "Right"
+                    p2Direction.innerHTML = "Turn Right"
                 }
                 if (turn === 2) {
-                    p2Direction.innerHTML = "Right";
+                    p1Direction.innerHTML = "Turn Right";
                 }
                 break;
             case 4:
@@ -529,10 +544,10 @@ function roll() {
             case 6:
                 readyDirection = straight
                 if (turn === 1) {
-                    p1Direction.innerHTML =  "Straight"
+                    p2Direction.innerHTML =  "Go Straight"
                 }
                 if (turn === 2) {
-                    p2Direction.innerHTML = "Straight";
+                    p1Direction.innerHTML = "Go Straight";
                 }
                 break;
         }   
@@ -543,7 +558,23 @@ function roll() {
 
 rollButton.addEventListener("click", ()=>{
     roll();
-    rollModal.style.display = "none"
+    rollButton.style.display = "none"
+            if (turn === 1) {
+                modalSentence.innerHTML = p2Direction.innerHTML
+            }
+            if (turn === 2) {
+                modalSentence.innerHTML = p1Direction.innerHTML
+            }
+            setTimeout(() => {
+                if (readyDirection != stop) {
+                    ready = true;
+                    waiting = false;
+                }
+                rollButton.style.display = "block"
+                rollModal.style.display = "none"
+                modalSentence.innerHTML = " "
+            }, timer);
+    
 })
 
 
