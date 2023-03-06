@@ -14,10 +14,10 @@ let randNum;
 function rollDice() {
   //genberate a random number between 1 and 6 with out getRandomInt function
     randNum =getRandomInt(1,7); 
-    console.log(randNum )
+    //console.log(randNum )
     //generate a class with the random number between 1 - 6 called showClass
     var showClass = 'show-' + randNum;
-    console.log(showClass)
+    //console.log(showClass)
   // if there is a class already selected remove it
     if ( currentClass ) {
       cube.classList.remove( currentClass );
@@ -29,4 +29,4 @@ function rollDice() {
 }
 
 // set initial side
-rollDice();
+// rollDice();

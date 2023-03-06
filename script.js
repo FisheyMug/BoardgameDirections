@@ -212,6 +212,7 @@ document.addEventListener("keydown", function(event){
     if (!ready) {
         if (event.key === " " || event.key === "Enter") {
             rollDice()
+            ready = true;
             setTimeout(() => {
                 roll(); 
                   
@@ -508,6 +509,8 @@ function move(direction) {
     }
 }
 const timer = 1000;
+
+
 function roll() {
     if (waiting) {
         let result = randNum;
@@ -561,30 +564,31 @@ function roll() {
 }
 
 rollButton.addEventListener("click", ()=>{
-    rollDice()
-    setTimeout(() => {
-        roll(); 
-          
-    rollButton.style.display = "none"
-    
-    if (turn === 1 && readyDirection !=stop) {
-        modalSentence.innerHTML = p2Direction.innerHTML
-        } else if (turn === 2 && readyDirection !=stop) {
-            modalSentence.innerHTML = p1Direction.innerHTML
-        } else modalSentence.innerHTML = "Stop, Change Player!"
-
-    setTimeout(() => {
-                if (readyDirection != stop) {
-                    ready = true;
-                    waiting = false;
-                }
-                rollButton.style.display = "block"
-                rollModal.style.display = "none"
-                modalSentence.innerHTML = " "
-            }, timer);
-    }, 1500);
-
-    
+    if (!ready) {
+            rollDice()
+            ready = true;
+            setTimeout(() => {
+                roll(); 
+                  
+            rollButton.style.display = "none"
+            
+            if (turn === 1 && readyDirection !=stop) {
+                modalSentence.innerHTML = p2Direction.innerHTML
+                } else if (turn === 2 && readyDirection !=stop) {
+                    modalSentence.innerHTML = p1Direction.innerHTML
+                } else modalSentence.innerHTML = "Stop, Change Player!"
+        
+            setTimeout(() => {
+                        if (readyDirection != stop) {
+                            ready = true;
+                            waiting = false;
+                        }
+                        rollButton.style.display = "block"
+                        rollModal.style.display = "none"
+                        modalSentence.innerHTML = " "
+                    }, timer);
+            }, 1500);
+    }
 })
 
 
