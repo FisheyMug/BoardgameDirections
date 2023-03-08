@@ -46,7 +46,7 @@ let down = 0;
 let straight;
 let turn = 1;
 
-
+const timer = 1000;
 
 //does the sprite sheet maths for us
 // credit/tutorial used to figure this out---https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
@@ -211,29 +211,24 @@ document.addEventListener("keydown", function(event){
 
     if (!ready) {
         if (event.key === " " || event.key === "Enter") {
-            rollDice()
-            ready = true;
-            setTimeout(() => {
-                roll(); 
-                  
+            roll();
             rollButton.style.display = "none"
-            
+         
             if (turn === 1 && readyDirection !=stop) {
                 modalSentence.innerHTML = p2Direction.innerHTML
-                } else if (turn === 2 && readyDirection !=stop) {
-                    modalSentence.innerHTML = p1Direction.innerHTML
-                } else modalSentence.innerHTML = "Stop, Change Player!"
-        
+            } else if (turn === 2 && readyDirection !=stop) {
+                modalSentence.innerHTML = p1Direction.innerHTML
+            } else modalSentence.innerHTML = "Stop, Change Player!"
+
             setTimeout(() => {
-                        if (readyDirection != stop) {
-                            ready = true;
-                            waiting = false;
-                        }
-                        rollButton.style.display = "block"
-                        rollModal.style.display = "none"
-                        modalSentence.innerHTML = " "
-                    }, timer);
-            }, 1500);
+                if (readyDirection != stop) {
+                    ready = true;
+                    waiting = false;
+                }
+                rollButton.style.display = "block"
+                rollModal.style.display = "none"
+                modalSentence.innerHTML = " "
+            }, timer);
     
         }
     }
@@ -508,12 +503,24 @@ function move(direction) {
         
     }
 }
-const timer = 1000;
 
-
+let currentClass;
+let cube = document.querySelector('.cube');
 function roll() {
     if (waiting) {
-        let result = randNum;
+        let result = Math.round(Math.random() * (6-1) + 1);
+            //console.log(randNum )
+            //generate a class with the random number between 1 - 6 called showClass
+            let showClass = 'show-' + result;
+          // if there is a class already selected remove it
+            if ( currentClass ) {
+              cube.classList.remove( currentClass );
+            }
+          // add the new showclass with the generated number
+            cube.classList.add( showClass );
+          //set the current class to the randomly generated number
+            currentClass = showClass;
+    
         switch (result) {
             case 1:
             case 2:
@@ -557,40 +564,33 @@ function roll() {
                     p1Direction.innerHTML = "Go Straight";
                 }
                 break;
-        }  
+        }   
         
     }
     
 }
 
 rollButton.addEventListener("click", ()=>{
-    if (!ready) {
-            rollDice()
-            ready = true;
-            setTimeout(() => {
-                roll(); 
-                  
-            rollButton.style.display = "none"
-            
+    roll();
+    rollButton.style.display = "none"
+    
             if (turn === 1 && readyDirection !=stop) {
                 modalSentence.innerHTML = p2Direction.innerHTML
-                } else if (turn === 2 && readyDirection !=stop) {
-                    modalSentence.innerHTML = p1Direction.innerHTML
-                } else modalSentence.innerHTML = "Stop, Change Player!"
-        
+            } else if (turn === 2 && readyDirection !=stop) {
+                modalSentence.innerHTML = p1Direction.innerHTML
+            } else modalSentence.innerHTML = "Stop, Change Player!"
+
             setTimeout(() => {
-                        if (readyDirection != stop) {
-                            ready = true;
-                            waiting = false;
-                        }
-                        rollButton.style.display = "block"
-                        rollModal.style.display = "none"
-                        modalSentence.innerHTML = " "
-                    }, timer);
-            }, 1500);
-    }
+                if (readyDirection != stop) {
+                    ready = true;
+                    waiting = false;
+                }
+                rollButton.style.display = "block"
+                rollModal.style.display = "none"
+                modalSentence.innerHTML = " "
+            }, timer);
+    
 })
 
 
 animate();
-
