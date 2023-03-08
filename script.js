@@ -210,7 +210,7 @@ document.addEventListener("keydown", function(event){
     }
 
     if (!ready) {
-        if (event.key === " " || event.key === "Enter") {
+        if ((event.key === " " || event.key === "Enter") && rollButton.style.display != "none") {
             roll();
             rollButton.style.display = "none"
          
